@@ -174,6 +174,7 @@ namespace ComputerScienceMethods
 
         public void StartModel()
         {
+            this.initializeClassVariables();
             this.predatorResults = new ModelResults();
             this.preyResults = new ModelResults();
             

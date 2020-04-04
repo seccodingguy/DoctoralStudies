@@ -154,7 +154,7 @@ namespace IntroCompScience
         private void button1_Click(object sender, EventArgs e)
         {
             SaveFileDialog chartexportfilelocation = new SaveFileDialog();
-            chartexportfilelocation.Filter = "PNG File (*.png) | All files (*.*)";
+            chartexportfilelocation.Filter = "PNG File(*.png)|*.png|All files(*.*)|*.*";
 
             if (chartexportfilelocation.ShowDialog(this) == DialogResult.OK)
             {
@@ -174,7 +174,7 @@ namespace IntroCompScience
         private void button2_Click(object sender, EventArgs e)
         {
             SaveFileDialog dataexportfilelocation = new SaveFileDialog();
-            dataexportfilelocation.Filter = "CSV File (*.CSV) | All Files (*.*)";
+            dataexportfilelocation.Filter = "CSV File(*.csv)|*.csv|All Files(*.*)|*.*";
 
             StringBuilder simulationresultdata = new StringBuilder();
 
