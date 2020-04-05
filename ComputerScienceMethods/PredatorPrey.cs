@@ -203,14 +203,14 @@ namespace ComputerScienceMethods
                 if (this.preyInitialParameters.CarryingCapacity < 1)
                 {
                     preyLotkaVolterra = this.preyChangeInPopulation(lotkavolterra);
-                    preyPopulationSizeOverTime[iteration] = preyPopulationSizeOverTime[iteration - 1] + (preyLotkaVolterra * this.preyInitialParameters.TimeIncrement);
-
+                    //preyPopulationSizeOverTime[iteration] = preyPopulationSizeOverTime[iteration - 1] + (preyLotkaVolterra * this.preyInitialParameters.TimeIncrement);
+                    preyPopulationSizeOverTime[iteration] = this.returnzeroorgreater(preyPopulationSizeOverTime[iteration - 1],(preyLotkaVolterra * this.preyInitialParameters.TimeIncrement));
                 }
                 else
                 {
                     preyLotkaVolterra = this.preyChangeInPopulationWithCarryingCapacity(this.preyInitialParameters, lotkavolterra);
-                    preyPopulationSizeOverTime[iteration] = preyPopulationSizeOverTime[iteration - 1] + (preyLotkaVolterra * this.preyInitialParameters.TimeIncrement);
-
+                    //preyPopulationSizeOverTime[iteration] = preyPopulationSizeOverTime[iteration - 1] + (preyLotkaVolterra * this.preyInitialParameters.TimeIncrement);
+                    preyPopulationSizeOverTime[iteration] = this.returnzeroorgreater(preyPopulationSizeOverTime[iteration - 1],(preyLotkaVolterra * this.preyInitialParameters.TimeIncrement));
                 }
 
                 preyGrowthRateOverTime[iteration] = this.growthRate(preyPopulationSizeOverTime,iteration);
@@ -219,13 +219,14 @@ namespace ComputerScienceMethods
                 if(this.predatorInitialParameters.CarryingCapacity < 1)
                 {
                     predatorLotkaVolterra = this.predatorChangeInPopulation(lotkavolterra);
-                    predatorPopulationSizeOverTime[iteration] = predatorPopulationSizeOverTime[iteration - 1] + (predatorLotkaVolterra * this.predatorInitialParameters.TimeIncrement);
+                    //predatorPopulationSizeOverTime[iteration] = predatorPopulationSizeOverTime[iteration - 1] + (predatorLotkaVolterra * this.predatorInitialParameters.TimeIncrement);
+                    predatorPopulationSizeOverTime[iteration] = this.returnzeroorgreater(predatorPopulationSizeOverTime[iteration - 1], (predatorLotkaVolterra * this.predatorInitialParameters.TimeIncrement));
                 }
                 else
                 {
                     predatorLotkaVolterra = this.predatorChangeInPopulationWithCarryingCapacity(this.predatorInitialParameters,lotkavolterra);
-                    predatorPopulationSizeOverTime[iteration] = predatorPopulationSizeOverTime[iteration - 1] + (predatorLotkaVolterra *  this.predatorInitialParameters.TimeIncrement);
-
+                    //predatorPopulationSizeOverTime[iteration] = predatorPopulationSizeOverTime[iteration - 1] + (predatorLotkaVolterra *  this.predatorInitialParameters.TimeIncrement);
+                    predatorPopulationSizeOverTime[iteration] = this.returnzeroorgreater(predatorPopulationSizeOverTime[iteration - 1], (predatorLotkaVolterra * this.predatorInitialParameters.TimeIncrement));
                 }
 
                 predatorGrowthRateOverTime[iteration] = this.growthRate(predatorPopulationSizeOverTime, iteration);
@@ -238,6 +239,18 @@ namespace ComputerScienceMethods
             this.predatorResults.PopulationGrowthOverTime = predatorPopulationSizeOverTime;
             this.predatorResults.GrowthRateOverTime = predatorGrowthRateOverTime;
             
+        }
+
+        private float returnzeroorgreater(float currentPopulation, float populationChange)
+        {
+            float returnValue = currentPopulation + populationChange;
+
+            if(returnValue < 0)
+            {
+                returnValue = 0;
+            }
+            
+            return returnValue;
         }
 
         private float preyChangeInPopulation(System.Collections.Hashtable lotkavolterravariables)
