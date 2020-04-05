@@ -75,6 +75,12 @@
     <Compile Include="IntroductionComputerScience.Designer.cs">
       <DependentUpon>IntroductionComputerScience.cs</DependentUpon>
     </Compile>
+    <Compile Include="SIRSimulator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SIRSimulator.Designer.cs">
+      <DependentUpon>SIRSimulator.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnconstrainedGrowthSimulator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IntroductionComputerScience.resx">
       <DependentUpon>IntroductionComputerScience.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SIRSimulator.resx">
+      <DependentUpon>SIRSimulator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UnconstrainedGrowthSimulator.resx">
       <DependentUpon>UnconstrainedGrowthSimulator.cs</DependentUpon>

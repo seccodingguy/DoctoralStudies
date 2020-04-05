@@ -106,5 +106,12 @@ namespace IntroCompScience
             }
         }
 
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form sirsimulator = new SIRSimulator();
+            sirsimulator.MdiParent = this;
+            sirsimulator.Text = "SIR Simulator " + childFormNumber++;
+            sirsimulator.Show();
+        }
     }
 }

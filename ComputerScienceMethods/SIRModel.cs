@@ -25,6 +25,9 @@ namespace ComputerScienceMethods
             this.susceptablePopulationSizeOverTime = new float[this.numberofIterationsToRun];
             this.infectedPopulationSizeOverTime = new float[this.numberofIterationsToRun];
             this.removedPopulationSizeOverTime = new float[this.numberofIterationsToRun];
+            this.susceptableIndividualsResults = new ModelResults();
+            this.infectedIndividualsResults = new ModelResults();
+            this.removedIndividualsResults = new ModelResults();
 
         }
 
@@ -43,22 +46,49 @@ namespace ComputerScienceMethods
             set { this.removedIndividualsInitialParameters = value; }
         }
 
+        public ModelResults SusceptablePopulation
+        {
+            get { return this.susceptableIndividualsResults; }
+        }
+
+        public ModelResults InfectionPopulation
+        {
+            get { return this.infectedIndividualsResults; }
+        }
+
+        public ModelResults RemovedPopulation
+        {
+            get { return this.removedIndividualsResults; }
+        }
+
         public void StartModel()
         {
             this.initializeClassLevelVariables();
+
+            float populationsizeincrease = 0;
 
             timeSeries[0] = 0;
             this.susceptablePopulationSizeOverTime[0] = this.susceptableIndividualsInitialParameters.InitialPopulationSize;
             this.infectedPopulationSizeOverTime[0] = this.infectedIndividualsInitialParameters.InitialPopulationSize;
             this.removedPopulationSizeOverTime[0] = this.removedIndividualsInitialParameters.InitialPopulationSize;
 
-            for(int interval = 0; interval < this.numberofIterationsToRun; interval++)
+            for (int interval = 1; interval < this.numberofIterationsToRun; interval++)
             {
-                this.susceptablePopulationSizeOverTime[interval] = this.returnzeroorgreater(this.susceptablePopulationSizeOverTime[interval - 1], (this.susceptableIndividuals(this.susceptablePopulationSizeOverTime[interval - 1], this.infectedPopulationSizeOverTime[interval - 1] * this.susceptableIndividualsInitialParameters.TimeIncrement)));
-                this.infectedPopulationSizeOverTime[interval] = this.returnzeroorgreater(this.infectedPopulationSizeOverTime[interval - 1], (this.infectedIndividuals(this.susceptablePopulationSizeOverTime[interval - 1], this.infectedPopulationSizeOverTime[interval - 1] * this.infectedIndividualsInitialParameters.TimeIncrement)));
-                this.removedPopulationSizeOverTime[interval] = this.returnzeroorgreater(this.removedPopulationSizeOverTime[interval - 1], (this.removedIndividuals(this.infectedPopulationSizeOverTime[interval - 1] * this.removedIndividualsInitialParameters.TimeIncrement)));
+                timeSeries[interval] = interval * this.susceptableIndividualsInitialParameters.TimeIncrement;
+
+                populationsizeincrease = this.susceptableIndividuals(this.susceptablePopulationSizeOverTime[interval - 1], this.infectedPopulationSizeOverTime[interval - 1]) * this.susceptableIndividualsInitialParameters.TimeIncrement;
+                this.susceptablePopulationSizeOverTime[interval] = this.returnzeroorgreater(this.susceptablePopulationSizeOverTime[interval - 1], populationsizeincrease);
+
+                populationsizeincrease = this.infectedIndividuals(this.susceptablePopulationSizeOverTime[interval - 1], this.infectedPopulationSizeOverTime[interval - 1]) * this.susceptableIndividualsInitialParameters.TimeIncrement;
+                this.infectedPopulationSizeOverTime[interval] = this.returnzeroorgreater(this.infectedPopulationSizeOverTime[interval - 1], populationsizeincrease);
+                
+                populationsizeincrease = this.removedIndividuals(this.infectedPopulationSizeOverTime[interval - 1]) * this.susceptableIndividualsInitialParameters.TimeIncrement;
+                this.removedPopulationSizeOverTime[interval] = this.returnzeroorgreater(this.removedPopulationSizeOverTime[interval - 1], populationsizeincrease);
             }
 
+            this.susceptableIndividualsResults.TimeSeries = timeSeries;
+            this.infectedIndividualsResults.TimeSeries = timeSeries;
+            this.removedIndividualsResults.TimeSeries = timeSeries;
             this.susceptableIndividualsResults.PopulationGrowthOverTime = this.susceptablePopulationSizeOverTime;
             this.infectedIndividualsResults.PopulationGrowthOverTime = this.infectedPopulationSizeOverTime;
             this.removedIndividualsResults.PopulationGrowthOverTime = this.removedPopulationSizeOverTime;
@@ -72,12 +102,12 @@ namespace ComputerScienceMethods
 
         private float infectedIndividuals(float susceptablePopulationSize, float infectedPopulationSize)
         {
-            return (-susceptableIndividuals(susceptablePopulationSize, infectedPopulationSize)) * -(this.infectedIndividualsInitialParameters.RecoveryRate * infectedPopulationSize);
+            return (-susceptableIndividuals(susceptablePopulationSize, infectedPopulationSize)) - (this.infectedIndividualsInitialParameters.RecoveryRate * infectedPopulationSize);
         }
 
-        private float removedIndividuals(float infectePopulationSize)
+        private float removedIndividuals(float infectedPopulationSize)
         {
-            return this.removedIndividualsInitialParameters.RecoveryRate * infectePopulationSize;
+            return this.removedIndividualsInitialParameters.RecoveryRate * infectedPopulationSize;
         }
 
         private float returnzeroorgreater(float currentPopulation, float populationChange)
@@ -94,7 +124,7 @@ namespace ComputerScienceMethods
 
         private int numberOfIterations()
         {
-            return System.Convert.ToInt32(this.SIRInitialParameters.LengthofSimulation / this.SIRInitialParameters.TimeIncrement) + 1;
+            return System.Convert.ToInt32(this.susceptableIndividualsInitialParameters.LengthofSimulation / this.susceptableIndividualsInitialParameters.TimeIncrement) + 1;
         }
     }
 }
