@@ -17,6 +17,8 @@ namespace ComputerScienceMethods
         private float competitionCoefficientPredatorPrey;
         private bool runforPreyOnly;
         private bool runforPredatoryOnly;
+        private float transmissionConstant;
+        private float recoveryRate;
 
 
         public float TimeIncrement
@@ -83,6 +85,18 @@ namespace ComputerScienceMethods
         {
             get { return this.runforPredatoryOnly; }
             set { this.runforPredatoryOnly = value; }
+        }
+
+        public float TransmissionConstant
+        {
+            get { return this.transmissionConstant; }
+            set { this.transmissionConstant = value; }
+        }
+
+        public float RecoveryRate
+        {
+            get { return this.recoveryRate; }
+            set { this.recoveryRate = value; }
         }
     }
 }
