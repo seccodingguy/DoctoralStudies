@@ -6,7 +6,6 @@ namespace ComputerScienceMethods
 {
     public class MalariaInitialParameters: InitialParameters
     {
-        private InitialParameters baseInitialParameters;
         private float malariainduceddeathrate;
         private float probabilityofgettingbit;
         private float mosquitobirthrate;
@@ -17,6 +16,7 @@ namespace ComputerScienceMethods
         private int initialimmunepopulation;
         private int initialuninfectedmosquitos;
         private int initialnumberofvectors;
+        private int initialhumanhostspopulation;
 
         public float MalariaInducedDeathRate
         {
@@ -76,6 +76,12 @@ namespace ComputerScienceMethods
         {
             get { return this.initialnumberofvectors; }
             set { this.initialnumberofvectors = value; }
+        }
+
+        public int InitialHumanHostsPopulation
+        {
+            get { return this.initialhumanhostspopulation; }
+            set { this.initialhumanhostspopulation = value; }
         }
     }
 }

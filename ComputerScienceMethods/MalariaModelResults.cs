@@ -6,11 +6,13 @@ namespace ComputerScienceMethods
 {
     public class MalariaModelResults
     {
-        ModelResults uninfectedHumansPopulation;
-        ModelResults humanHostsPopulation;
-        ModelResults immunePopulation;
-        ModelResults uninfectedMosquitosPopulation;
-        ModelResults vectorsPopulation;
+        ModelResults uninfectedHumansPopulation = new ModelResults();
+        ModelResults humanHostsPopulation = new ModelResults();
+        ModelResults immunePopulation = new ModelResults();
+        ModelResults uninfectedMosquitosPopulation = new ModelResults();
+        ModelResults vectorsPopulation = new ModelResults();
+        ModelResults probabilityhostPopulation = new ModelResults();
+        ModelResults probabilityvectorPopulation = new ModelResults();
 
         public ModelResults UninfectedHumansPopulation
         {
@@ -32,14 +34,26 @@ namespace ComputerScienceMethods
 
         public ModelResults UninfectedMosquitosPopulation
         {
-            get { return this.uninfectedHumansPopulation; }
-            set { this.uninfectedHumansPopulation = value; }
+            get { return this.uninfectedMosquitosPopulation; }
+            set { this.uninfectedMosquitosPopulation = value; }
         }
 
         public ModelResults VectorsPopulation
         {
             get { return this.vectorsPopulation; }
             set { this.vectorsPopulation = value; }
+        }
+
+        public ModelResults ProbabilityHostPopulation
+        {
+            get { return this.probabilityhostPopulation; }
+            set { this.probabilityhostPopulation = value; }
+        }
+
+        public ModelResults ProbabilityVectorPopulation
+        {
+            get { return this.probabilityvectorPopulation; }
+            set { this.probabilityvectorPopulation = value; }
         }
     }
 }

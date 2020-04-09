@@ -113,5 +113,13 @@ namespace IntroCompScience
             sirsimulator.Text = "SIR Simulator " + childFormNumber++;
             sirsimulator.Show();
         }
+
+        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form malariasimulator = new MalariaSimulator();
+            malariasimulator.MdiParent = this;
+            malariasimulator.Text = "Malaria Simulator " + childFormNumber++;
+            malariasimulator.Show();
+        }
     }
 }
