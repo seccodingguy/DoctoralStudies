@@ -121,5 +121,13 @@ namespace IntroCompScience
             malariasimulator.Text = "Malaria Simulator " + childFormNumber++;
             malariasimulator.Show();
         }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form computationalerrors = new ComputationErrorSimulator();
+            computationalerrors.MdiParent = this;
+            computationalerrors.Text = "Computation Errors " + childFormNumber;
+            computationalerrors.Show();
+        }
     }
 }
